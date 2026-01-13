@@ -36,9 +36,6 @@ QUERY_TIMEOUT = 10.0
 # Minimum speedup to get positive reward
 MIN_SPEEDUP_THRESHOLD = 1.0
 
-# Maximum reward per query
-MAX_REWARD_PER_QUERY = 10.0
-
 
 # =============================================================================
 # Query Execution
@@ -152,14 +149,13 @@ def evaluate_transformer(transformer: Callable[[str], str]) -> Tuple[float, Dict
         transformer: Function that takes SQL string and returns optimized SQL
         
     Returns:
-        Tuple of (total_reward, details_dict)
-        - total_reward: Sum of rewards across all queries
+        Tuple of (reward, details_dict)
+        - reward: Average speedup (original_time / transformed_time) across successful queries
         - details_dict: Per-query results and statistics
     """
     conn = get_connection(readonly=True)
     test_queries = get_test_queries()
     
-    total_reward = 0.0
     details = {
         "queries": {},
         "successful": 0,
@@ -249,19 +245,14 @@ def evaluate_transformer(transformer: Callable[[str], str]) -> Tuple[float, Dict
                 details["queries"][query_id] = query_result
                 continue
             
-            # Calculate speedup and reward
+            # Calculate speedup
             if transformed_time > 0 and original_time > 0:
                 speedup = original_time / transformed_time
                 query_result["speedup"] = speedup
                 details["total_speedup"] += speedup
-                
-                # Reward calculation: use speedup directly (capped)
-                reward = min(speedup, MAX_REWARD_PER_QUERY)
-                
-                query_result["reward"] = reward
-                total_reward += reward
             else:
                 query_result["speedup"] = 1.0
+                details["total_speedup"] += 1.0
             
             query_result["status"] = "success"
             details["successful"] += 1
@@ -276,12 +267,15 @@ def evaluate_transformer(transformer: Callable[[str], str]) -> Tuple[float, Dict
     conn.close()
     
     # Add summary statistics
-    details["total_reward"] = total_reward
     details["num_queries"] = len(test_queries)
     if details["successful"] > 0:
         details["avg_speedup"] = details["total_speedup"] / details["successful"]
     else:
         details["avg_speedup"] = 0.0
+    
+    # Reward is simply the average speedup
+    total_reward = details["avg_speedup"]
+    details["total_reward"] = total_reward
     
     return total_reward, details
 
@@ -336,7 +330,6 @@ def get_reward(code: str,
         
         for query_id, query_result in raw_details.get("queries", {}).items():
             success = query_result["status"] == "success"
-            score = query_result.get("reward", 0.0)
             speedup = query_result.get("speedup")
             error = query_result.get("error")
             original_sql = query_result.get("original_sql", "")
@@ -346,13 +339,13 @@ def get_reward(code: str,
             
             status_symbol = "✓" if success else "✗"
             if speedup is not None:
-                lines.append(f"  {status_symbol} {query_id}: score={score:.2f}, speedup={speedup:.2f}x")
+                lines.append(f"  {status_symbol} {query_id}: speedup={speedup:.2f}x")
                 lines.append(f"      SQL: {sql_clean}")
             elif error:
-                lines.append(f"  {status_symbol} {query_id}: score={score:.2f}, error={error}")
+                lines.append(f"  {status_symbol} {query_id}: error={error}")
                 lines.append(f"      SQL: {sql_clean}")
             else:
-                lines.append(f"  {status_symbol} {query_id}: score={score:.2f}")
+                lines.append(f"  {status_symbol} {query_id}")
                 lines.append(f"      SQL: {sql_clean}")
         
         details_string = "\n".join(lines)

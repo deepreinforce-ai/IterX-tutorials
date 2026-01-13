@@ -8,7 +8,7 @@ In this task, we build SQL query transformers that rewrite inefficient queries i
 The evaluation uses a simulated e-commerce database with 1.6M+ rows across 5 tables. Your transformer receives SQL queries containing common inefficiencies (correlated subqueries, redundant operations, suboptimal joins) and must produce equivalent queries that execute faster. The schema and test queries can be easily adjusted to match your real-world database for domain-specific optimization.
 
 The `get_reward(code_path)` function returns `(reward, error_msg, details)`:
-- **reward**: Sum of per-query rewards. For each query: `reward = min((speedup - 1.0) * 2.0, 10.0)` if faster, `(speedup - 1.0) * 0.5` penalty if slower.
+- **reward**: Average speedup across all successful queries, where `speedup = original_time / transformed_time`. Higher is better (>1 means faster).
 - **error_msg**: Error message if evaluation failed, None otherwise.
 - **details**: String with per-query results (success/failure, speedup, error messages) for learning from specific failures.
 
@@ -86,7 +86,7 @@ CREATE TABLE order_items (
 ```
 ---
 ## Reward Description
-Sum of per-query rewards. For each query: `reward = min((speedup - 1.0) * 2.0, 10.0)` if faster, `(speedup - 1.0) * 0.5` penalty if slower.
+Average speedup across all successful queries, where `speedup = original_time / transformed_time`. Higher is better (>1 means faster).
 
 ## Initial Code
 
