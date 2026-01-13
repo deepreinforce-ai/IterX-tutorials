@@ -1,0 +1,3 @@
+# Iterx API Configuration
+BASE_URL: "https://iterx.deep-reinforce.com"
+API_KEY: "YOUR_API_KEY"

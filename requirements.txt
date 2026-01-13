@@ -1,0 +1,19 @@
+# Common
+requests>=2.28.0
+
+# CUDA optimization & Optimizer tasks
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Online packing task
+numpy>=1.24.0
+numba>=0.57.0
+
+# SQL query optimization task
+tqdm>=4.65.0
+
+# CUDA eval server (flask-based)
+flask>=2.3.0
+flask-cors>=4.0.0
+psutil>=5.9.0
+

@@ -1,0 +1,7 @@
+{
+    "evaluation": {
+        "batch_sizes": [10, 50, 100, 500]
+    }
+}
+
+
