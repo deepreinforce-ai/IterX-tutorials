@@ -198,7 +198,8 @@ def get_reward(code: str, work_dir: str = None) -> Tuple[float, str, str]:
         
     Returns:
         Tuple of (reward, error_msg, details)
-        - reward: 1e9/total_gas (higher = better), 0 if validation or tests fail
+        - reward: Percentage of gas saved compared to baseline (1 - total_gas / 19399102), 
+                  clamped to 0 if negative (higher = better), 0 if validation or tests fail
         - error_msg: "" if successful, error description otherwise
         - details: "" (reserved for future use)
     """
@@ -250,8 +251,11 @@ def get_reward(code: str, work_dir: str = None) -> Tuple[float, str, str]:
         gas_dict = {size: result.gas_used for size, result in gas_results_raw.items() if result.success}
         
         print(f"total_gas {total_gas}")
+        baseline_gas = 19399102
         if total_gas > 0:
-            return 1 -  total_gas / 19399102 , "", ""
+            save_percent = 1 - total_gas / baseline_gas
+            save_percent = max(0.0, min(1.0, save_percent))
+            return save_percent, "", ""
         return 0.0, "No gas measurements returned", ""
         
     except Exception as e:
