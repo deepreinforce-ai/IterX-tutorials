@@ -36,6 +36,10 @@ QUERY_TIMEOUT = 10.0
 # Minimum speedup to get positive reward
 MIN_SPEEDUP_THRESHOLD = 1.0
 
+# Penalty for failed/incorrect queries (harsh penalty to discourage failures)
+# A failed query contributes this negative value to total_speedup
+FAILURE_PENALTY = -1.0
+
 
 # =============================================================================
 # Query Execution
@@ -273,8 +277,12 @@ def evaluate_transformer(transformer: Callable[[str], str]) -> Tuple[float, Dict
     else:
         details["avg_speedup"] = 0.0
     
-    # Reward is simply the average speedup
-    total_reward = details["avg_speedup"]
+    # Reward: average over ALL queries with harsh penalty for failures
+    # Failed/incorrect queries contribute FAILURE_PENALTY (negative) to hurt the score
+    num_failures = details["failed"] + details["incorrect"]
+    penalized_total = details["total_speedup"] + (num_failures * FAILURE_PENALTY)
+    total_reward = penalized_total / details["num_queries"] if details["num_queries"] > 0 else 0.0
+    total_reward = max(0.0, total_reward)  # Clamp to non-negative
     details["total_reward"] = total_reward
     
     return total_reward, details
@@ -376,7 +384,9 @@ if __name__ == "__main__":
     
     # Get the path to initial_code.py (baseline transformer)
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    initial_code_path = os.path.join(script_dir, "initial_code.py")
+    #initial_code_path = os.path.join(script_dir, "initial_code.py")
+    initial_code_path = os.path.join(script_dir, "optimized_code.py")
+
     
     print(f"Testing evaluation with baseline transformer: {initial_code_path}")
     
