@@ -8,7 +8,7 @@ In this task, we build SQL query transformers that rewrite inefficient queries i
 The evaluation uses a simulated e-commerce database with 1.6M+ rows across 5 tables. Your transformer receives SQL queries containing common inefficiencies (correlated subqueries, redundant operations, suboptimal joins) and must produce equivalent queries that execute faster. The schema and test queries can be easily adjusted to match your real-world database for domain-specific optimization.
 
 The `get_reward(code_path)` function returns `(reward, error_msg, details)`:
-- **reward**: Average speedup across all successful queries, where `speedup = original_time / transformed_time`. Higher is better (>1 means faster).
+- **reward**: Average speedup across ALL queries with harsh penalty for failures. Successful queries contribute `speedup = original_time / transformed_time`. Failed/incorrect queries contribute -1.0 penalty each. Final reward is clamped to minimum 0. Higher is better (>1 means faster).
 - **error_msg**: Error message if evaluation failed, None otherwise.
 - **details**: String with per-query results (success/failure, speedup, error messages) for learning from specific failures.
 
@@ -86,7 +86,27 @@ CREATE TABLE order_items (
 ```
 ---
 ## Reward Description
-Average speedup across all successful queries, where `speedup = original_time / transformed_time`. Higher is better (>1 means faster).
+
+The reward formula penalizes failures harshly:
+
+```
+reward = max(0, (total_speedup + num_failures × FAILURE_PENALTY) / num_queries)
+```
+
+Where:
+- `total_speedup` = sum of speedups from successful queries (`original_time / transformed_time`)
+- `num_failures` = count of failed + incorrect queries  
+- `FAILURE_PENALTY` = -1.0 (each failure subtracts 1.0 from the total)
+- `num_queries` = 25 total test queries
+
+**Examples:**
+| Scenario | Calculation | Reward |
+|----------|-------------|--------|
+| 25 success (2x avg) | 50 / 25 | **2.0** |
+| 20 success (2x avg), 5 failed | (40 - 5) / 25 | **1.4** |
+| 5 success (2x avg), 20 failed | max(0, (10 - 20) / 25) | **0.0** |
+
+Higher is better (>1 means overall speedup). Failures are harshly penalized to encourage correctness.
 
 ## Initial Code
 
