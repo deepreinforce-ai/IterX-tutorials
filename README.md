@@ -1,6 +1,6 @@
 # Iterx Code Examples
 
-This repository contains example tasks for Iterx. Each task demonstrates how to integrate custom rewarding logic with the Iterx API for reinforcement learning from code feedback.
+This repository contains example tasks for [IterX](https://iterx.deep-reinforce.com/). Each task demonstrates how to integrate custom rewarding logic with the Iterx API for reinforcement learning from code feedback.
 
 ## Installation
 
