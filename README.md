@@ -12,7 +12,8 @@ pip install -r requirements.txt
 
 | Task | Category | Difficulty | Description |
 |------|----------|------------|-------------|
-| [pairwise_ranking](./pairwise_ranking/) | Demo | ⭐ | illustration only |
+| [sort_list](./sort_list/) | Demo | ⭐ | Illustration only |
+| [pairwise_ranking](./pairwise_ranking/) | Demo | ⭐ | Illustration only |
 | [guess_lyric](./guess_lyric/) | Demo | ⭐ | Illustration only |
 | [online_packing](./online_packing/) | Algorithms | ⭐⭐ | Online bin packing optimization |
 | [sql_query_optim](./sql_query_optim/) | Database | ⭐⭐⭐ | Optimize SQL queries for performance |
