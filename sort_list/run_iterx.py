@@ -21,7 +21,6 @@ with open(config_path, "r") as f:
 
 BASE_URL = config["BASE_URL"]
 API_KEY = config["API_KEY"]
-# task_id = "3dda6e35-493c-4729-8e64-38ae1cd318be"
 task_id = "YOUR_TASK_ID_FROM_CREATE_TASK"
 POLL_INTERVAL = 30
 REQUEST_TIMEOUT = 30
