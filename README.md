@@ -13,7 +13,6 @@ pip install -r requirements.txt
 | Task | Category | Difficulty | Description |
 |------|----------|------------|-------------|
 | [sort_list](./sort_list/) | Demo | ⭐ | Illustration only |
-| [pairwise_ranking](./pairwise_ranking/) | Demo | ⭐ | Illustration only |
 | [guess_lyric](./guess_lyric/) | Demo | ⭐ | Illustration only |
 | [online_packing](./online_packing/) | Algorithms | ⭐⭐ | Online bin packing optimization |
 | [sql_query_optim](./sql_query_optim/) | Database | ⭐⭐⭐ | Optimize SQL queries for performance |
@@ -22,6 +21,7 @@ pip install -r requirements.txt
 | [exploit_contract](./exploit_contract/) | Blockchain / Security | ⭐⭐⭐⭐ | Smart contract exploit generation |
 | [optimizer](./optimizer/) | Machine Learning | ⭐⭐⭐⭐ | Design an optimizer better than Adam |
 | [mev_arbitrage](./mev_arbitrage/) | Blockchain / DeFi | ⭐⭐⭐⭐⭐ | MEV arbitrage strategy design |
+| [anthropic_take_home](./anthropic_take_home/) | Systems / VLIW | ⭐⭐⭐⭐⭐ | Anthropic performance engineering take-home |
 
 > **Note:** Tasks with ⭐ (1 star) difficulty are for **illustration purposes only**, demonstrating how to set up an Iterx task.
 
