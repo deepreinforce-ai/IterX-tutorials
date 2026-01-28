@@ -50,7 +50,6 @@ on a custom VLIW SIMD architecture simulator.
 SECTION 1: COMPLETE MACHINE SIMULATOR CODE (problem.py)
 ================================================================================
 
-```python
 from copy import copy
 from dataclasses import dataclass
 from enum import Enum
@@ -438,11 +437,9 @@ def reference_kernel2(mem: list[int], trace: dict[Any, int] = {}):
             mem[inp_values_p + i] = val
             mem[inp_indices_p + i] = idx
     yield mem
-```
 
 You need to pass the following test in submission_tests.py
 
-```python
 import os, sys, inspect
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -515,9 +512,7 @@ def cycles():
 
 if __name__ == "__main__":
     unittest.main()
-```
 
-```
 **IMPORTANT: If performance plateaus, be very creative and more aggressive.**
 Try unconventional approaches, combine multiple techniques, restructure the
 algorithm entirely, or explore novel instruction orderings. Don't settle for
