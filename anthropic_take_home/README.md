@@ -517,6 +517,7 @@ if __name__ == "__main__":
     unittest.main()
 ```
 
+```
 **IMPORTANT: If performance plateaus, be very creative and more aggressive.**
 Try unconventional approaches, combine multiple techniques, restructure the
 algorithm entirely, or explore novel instruction orderings. Don't settle for
@@ -537,7 +538,7 @@ SECTION 5: THINGS TO AVOID
 2. Do not change N_CORES (multicore is disabled)
 3. Do not use debug slots for computation
 4. Only use documented instruction set
-5 DO NOT exceed SCRATCH_SIZE (1536 words)
+5. DO NOT exceed SCRATCH_SIZE (1536 words)
 6. DO NOT violate slot limits per engine per cycle
 7. DO NOT produce incorrect output values
 8. DO NOT use instructions not in the ISA
