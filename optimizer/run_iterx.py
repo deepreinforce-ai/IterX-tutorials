@@ -58,7 +58,7 @@ def create_task():
 - Excessive memory usage
 - Non-finite gradient values""",
             "reward_description": "Combined score: reward = (1/3) * inverted_auc + (2/3) * final_test_accuracy. Range [0.0, 1.0], higher is better. Inverted AUC rewards fast convergence, final accuracy rewards generalization.",
-            "initial_code": initial_code,
+            "initial_codes": [initial_code],
             "sample_size": 2,
             "model": "Qwen3-235B-A22B"
         },
@@ -172,7 +172,7 @@ def step_5_get_training_status(task_id):
         best = data.get("best", {})
         
         print("\n" + "=" * 70)
-        print(f"[Training Status] Progress: {progress:.1f}% | Evaluated: {total_evaluated}")
+        print(f"[Training Status] Progress: {progress}% | Evaluated: {total_evaluated}")
         if best:
             print(f"[Training Status] Best: code_id={best.get('code_id', 'N/A')}, reward={best.get('reward', 0):.4f}")
         print("=" * 70)

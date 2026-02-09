@@ -87,7 +87,7 @@ def create_task():
 - Deep liquidity pools (5,000+ WETH) allow large-scale extraction
 - Multiple arbitrage paths may exist - find the optimal combination""",
             "reward_description": "Normalized profit ratio: reward = profit / 20.0 (max extractable). Range [0.0, 1.0], higher is better. Returns 0 if contract fails or no profit generated.",
-            "initial_code": initial_code,
+            "initial_codes": [initial_code],
             "sample_size": 2,
             "model": "Qwen3-235B-A22B"
         },
@@ -202,7 +202,7 @@ def step_5_get_training_status(task_id):
         best = data.get("best", {})
         
         print("\n" + "=" * 70)
-        print(f"[Training Status] Progress: {progress:.1f}% | Evaluated: {total_evaluated}")
+        print(f"[Training Status] Progress: {progress}% | Evaluated: {total_evaluated}")
         if best:
             print(f"[Training Status] Best: code_id={best.get('code_id', 'N/A')}, reward={best.get('reward', 0):.4f}")
         print("=" * 70)

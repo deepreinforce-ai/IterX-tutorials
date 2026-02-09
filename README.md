@@ -13,7 +13,6 @@ pip install -r requirements.txt
 | Task | Category | Difficulty | Description |
 |------|----------|------------|-------------|
 | [sort_list](./sort_list/) | Demo | ⭐ | Illustration only |
-| [guess_lyric](./guess_lyric/) | Demo | ⭐ | Illustration only |
 | [online_packing](./online_packing/) | Algorithms | ⭐⭐ | Online bin packing optimization |
 | [sql_query_optim](./sql_query_optim/) | Database | ⭐⭐⭐ | Optimize SQL queries for performance |
 | [smart_contract](./smart_contract/) | Blockchain | ⭐⭐⭐ | Smart contract gas optimization |

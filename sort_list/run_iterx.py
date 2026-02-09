@@ -21,7 +21,8 @@ with open(config_path, "r") as f:
 
 BASE_URL = config["BASE_URL"]
 API_KEY = config["API_KEY"]
-task_id = "YOUR_TASK_ID_FROM_CREATE_TASK"
+# task_id = "3dda6e35-493c-4729-8e64-38ae1cd318be"
+task_id = "978ab37c-f24b-45b8-9bd1-d0c6d5995851"
 POLL_INTERVAL = 30
 REQUEST_TIMEOUT = 30
 
@@ -275,7 +276,7 @@ def mysort(arr):
                 "task_name": TASK_NAME,
                 "task_description": TASK_DESCRIPTION,
                 "reward_description": REWARD_DESCRIPTION,
-                "initial_code": INITIAL_CODE,
+                "initial_codes": [INITIAL_CODE],
                 "sample_size": SAMPLE_SIZE,
                 "model": MODEL
             },

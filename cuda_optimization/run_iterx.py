@@ -71,7 +71,7 @@ def create_task():
 **Writing CUDA in Python:**
 You can write CUDA kernels directly in Python files using `torch.utils.cpp_extension.load_inline`. This allows you to embed CUDA C++ code as a string and compile it at runtime.""",
             "reward_description": "Speedup ratio: reward = original_time / custom_time. Higher is better. Returns 0 if correctness tests fail or security checks are violated.",
-            "initial_code": initial_code,
+            "initial_codes": [initial_code],
             "sample_size": 2,
             "model": "Qwen3-235B-A22B"
         },
@@ -170,7 +170,7 @@ def step_5_get_training_status(task_id):
         best = data.get("best", {})
         
         print("\n" + "=" * 70)
-        print(f"[Training Status] Progress: {progress:.1f}% | Evaluated: {total_evaluated}")
+        print(f"[Training Status] Progress: {progress}% | Evaluated: {total_evaluated}")
         if best:
             print(f"[Training Status] Best: code_id={best.get('code_id', 'N/A')}, reward={best.get('reward', 0):.4f}")
         print("=" * 70)

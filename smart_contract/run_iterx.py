@@ -68,7 +68,7 @@ def create_task():
 3. Reentrancy vulnerabilities
 4. Exceeding block gas limits for large batches""",
             "reward_description": "Inverse of total gas used: reward = 1e9 / total_gas. Higher is better (lower gas = higher reward). Returns 0 if correctness tests fail.",
-            "initial_code": initial_code,
+            "initial_codes": [initial_code],
             "sample_size": 2,
             "model": "Qwen3-235B-A22B"
         },
@@ -187,7 +187,7 @@ def step_5_get_training_status(task_id):
         best = data.get("best", {})
         
         print("\n" + "=" * 70)
-        print(f"[Training Status] Progress: {progress:.1f}% | Evaluated: {total_evaluated}")
+        print(f"[Training Status] Progress: {progress}% | Evaluated: {total_evaluated}")
         if best:
             print(f"[Training Status] Best: code_id={best.get('code_id', 'N/A')}, reward={best.get('reward', 0):.4f}")
         print("=" * 70)
@@ -259,4 +259,5 @@ def get_or_create_task_id():
 
 if __name__ == "__main__":
     task_id = get_or_create_task_id()
+    print(task_id)
     main(task_id)
