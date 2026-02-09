@@ -1,9 +1,0 @@
-scp meini1:/home/ubuntu/jw/eeee/code/evolve/tutorials/anthropic_take_home/run_iterx.py anthropic_take_home
-scp meini1:/home/ubuntu/jw/eeee/code/evolve/tutorials/exploit_contract/run_iterx.py exploit_contract
-scp meini1:/home/ubuntu/jw/eeee/code/evolve/tutorials/sql_query_optim/run_iterx.py sql_query_optim
-scp meini1:/home/ubuntu/jw/eeee/code/evolve/tutorials/mev_arbitrage/run_iterx.py mev_arbitrage
-scp meini1:/home/ubuntu/jw/eeee/code/evolve/tutorials/online_packing/run_iterx.py online_packing
-scp meini1:/home/ubuntu/jw/eeee/code/evolve/tutorials/smart_contract/run_iterx.py smart_contract
-scp meini1:/home/ubuntu/jw/eeee/code/evolve/tutorials/cuda_optimization/run_iterx.py cuda_optimization
-scp meini1:/home/ubuntu/jw/eeee/code/evolve/tutorials/optimizer/run_iterx.py optimizer
-scp meini1:/home/ubuntu/jw/eeee/code/evolve/tutorials/sort_list/run_iterx.py sort_list
