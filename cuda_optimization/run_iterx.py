@@ -71,7 +71,7 @@ def create_task():
 **Writing CUDA in Python:**
 You can write CUDA kernels directly in Python files using `torch.utils.cpp_extension.load_inline`. This allows you to embed CUDA C++ code as a string and compile it at runtime.""",
             "reward_description": "Speedup ratio: reward = original_time / custom_time. Higher is better. Returns 0 if correctness tests fail or security checks are violated.",
-            "initial_codes": [initial_code],
+            "initial_code": initial_code,
             "sample_size": 2,
             "model": "Qwen3-235B-A22B"
         },

@@ -64,7 +64,7 @@ def create_task():
 3. Infinite loops in transformation logic
 4. Hardcoded transformations for specific query IDs""",
             "reward_description": "Sum of per-query rewards. For each query: reward = min((speedup - 1.0) * 2.0, 10.0) if faster, (speedup - 1.0) * 0.5 penalty if slower. Higher is better.",
-            "initial_codes": [initial_code],
+            "initial_code": initial_code,
             "sample_size": 2,
             "model": "Qwen3-235B-A22B"
         },

@@ -68,7 +68,7 @@ def create_task():
 3. Reentrancy vulnerabilities
 4. Exceeding block gas limits for large batches""",
             "reward_description": "Inverse of total gas used: reward = 1e9 / total_gas. Higher is better (lower gas = higher reward). Returns 0 if correctness tests fail.",
-            "initial_codes": [initial_code],
+            "initial_code": initial_code,
             "sample_size": 2,
             "model": "Qwen3-235B-A22B"
         },

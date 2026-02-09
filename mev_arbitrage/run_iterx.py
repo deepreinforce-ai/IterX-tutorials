@@ -87,7 +87,7 @@ def create_task():
 - Deep liquidity pools (5,000+ WETH) allow large-scale extraction
 - Multiple arbitrage paths may exist - find the optimal combination""",
             "reward_description": "Normalized profit ratio: reward = profit / 20.0 (max extractable). Range [0.0, 1.0], higher is better. Returns 0 if contract fails or no profit generated.",
-            "initial_codes": [initial_code],
+            "initial_code": initial_code,
             "sample_size": 2,
             "model": "Qwen3-235B-A22B"
         },

@@ -59,7 +59,7 @@ def create_task():
 
 **Things to Avoid:** None""",
             "reward_description": "Packing efficiency: reward = 1 - (bins_used - L1_bound) / L1_bound. Range (0.0, 1.0], higher is better. Perfect score (1.0) means using exactly the theoretical minimum number of bins.",
-            "initial_codes": [initial_code],
+            "initial_code": initial_code,
             "sample_size": 2,
             "model": "Qwen3-235B-A22B"
         },

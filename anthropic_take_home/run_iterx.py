@@ -344,7 +344,7 @@ def create_task() -> str:
                 "task_name": TASK_NAME,
                 "task_description": TASK_DESCRIPTION,
                 "reward_description": REWARD_DESCRIPTION,
-                "initial_codes": [INITIAL_CODE],
+                "initial_code": INITIAL_CODE,
                 "sample_size": SAMPLE_SIZE,
                 "model": MODEL
             },

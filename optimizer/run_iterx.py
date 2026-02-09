@@ -58,7 +58,7 @@ def create_task():
 - Excessive memory usage
 - Non-finite gradient values""",
             "reward_description": "Combined score: reward = (1/3) * inverted_auc + (2/3) * final_test_accuracy. Range [0.0, 1.0], higher is better. Inverted AUC rewards fast convergence, final accuracy rewards generalization.",
-            "initial_codes": [initial_code],
+            "initial_code": initial_code,
             "sample_size": 2,
             "model": "Qwen3-235B-A22B"
         },
