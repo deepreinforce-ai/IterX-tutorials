@@ -19,7 +19,6 @@ pip install -r requirements.txt
 | [cuda_optimization](./cuda_optimization/) | Systems / GPU | ⭐⭐⭐ | CUDA kernel optimization |
 | [exploit_contract](./exploit_contract/) | Blockchain / Security | ⭐⭐⭐⭐ | Smart contract exploit generation |
 | [optimizer](./optimizer/) | Machine Learning | ⭐⭐⭐⭐ | Design an optimizer better than Adam |
-| [mev_arbitrage](./mev_arbitrage/) | Blockchain / DeFi | ⭐⭐⭐⭐⭐ | MEV arbitrage strategy design |
 | [anthropic_take_home](./anthropic_take_home/) | Systems / VLIW | ⭐⭐⭐⭐⭐ | Anthropic performance engineering take-home |
 
 > **Note:** Tasks with ⭐ (1 star) difficulty are for **illustration purposes only**, demonstrating how to set up an Iterx task.
