@@ -651,7 +651,7 @@ def get_reward(
         )
         
         if Model is None or get_init_inputs is None or get_inputs is None:
-            return 0.0, "Failed to load original model"
+            return 0.0, "Failed to load original model", ""
         
         # Initialize original model
         set_seed(seed)

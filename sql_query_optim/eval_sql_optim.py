@@ -366,7 +366,7 @@ def get_reward(code: str,
             print(f"  Avg Speedup: {raw_details['avg_speedup']:.2f}x")
             print(f"  Total Reward: {reward:.2f}")
         
-        return reward, None, details_string
+        return reward, "", details_string
         
     except Exception as e:
         error_msg = f"Failed to evaluate transformer: {str(e)}"

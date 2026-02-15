@@ -5,6 +5,7 @@ Task: CUDA Kernel Optimization
 
 import os
 import time
+import tempfile
 from concurrent.futures import ThreadPoolExecutor
 import yaml
 import requests
@@ -205,8 +206,13 @@ def main(task_id):
             # Evaluate code locally
             try:
                 work_dir = f"/data/iterx/cuda_optimization/{code_id}"
+                os.makedirs(work_dir, exist_ok=True)
+                # Write code content to a temp file (eval_cuda_server expects a file path)
+                code_path = os.path.join(work_dir, "custom_code.py")
+                with open(code_path, "w") as f:
+                    f.write(code_content)
                 eval_url = f"http://localhost:{5000+index}"
-                reward, code_error_msg, details = get_reward(code_content, work_dir=work_dir, eval_url=eval_url, device_index=index%8)
+                reward, code_error_msg, details = get_reward(code_path, work_dir=work_dir, eval_url=eval_url, device_index=index%8)
             except Exception as e:
                 print(f"error {e}")
                 reward, code_error_msg, details = 0, str(e), ""

@@ -155,7 +155,7 @@ def step_4_submit_score(task_id, code_id, reward, code_error_msg, correctness_ch
     if result["code"] == 200:
         print(f"  ✓ Score submitted successfully.")
     else:
-        print(f"push_code_reward_by_id failed: {result["message"]}")
+        print(f"push_code_reward_by_id failed: {result['message']}")
 
 
 def step_5_get_training_status(task_id):
@@ -183,7 +183,7 @@ def step_5_get_training_status(task_id):
             print(f"[Training Status] Best: code_id={best.get('code_id', 'N/A')}, reward={best.get('reward', 0):.4f}")
         print("=" * 70)
     else:
-        print(f" get_training_status failed: {result["message"]}")
+        print(f" get_training_status failed: {result['message']}")
 
 
 def main(task_id):

@@ -318,12 +318,21 @@ def output_result(result, output_format):
             print(f"Training failed: {result['error']}")
 
 
-def get_reward(code: str):
+def get_reward(code: str, device: int = 0, epoch: int = 20, batch: int = 128,
+               task: str = 'resnet18', log_level: str = 'INFO', log_file: str = None,
+               output_format: str = 'json'):
     """
     Evaluate an optimizer and return the reward.
     
     Args:
         code: Python code string containing the optimizer class
+        device: GPU device index (default: 0)
+        epoch: Number of training epochs (default: 20)
+        batch: Batch size (default: 128)
+        task: ResNet architecture, 'resnet18' or 'resnet34' (default: 'resnet18')
+        log_level: Logging level (default: 'INFO')
+        log_file: Optional log file path (default: None)
+        output_format: Output format, 'json' or 'human' (default: 'json')
         
     Returns:
         Tuple of (reward, error_msg, details)
@@ -339,14 +348,12 @@ def get_reward(code: str):
         optimizer_path = f.name
     
     try:
-        args = parse_args()
-        
         # Setup logging
-        logger = setup_logging(args.log_level, args.log_file)
+        logger = setup_logging(log_level, log_file)
         
         start_time = datetime.now()
         logger.info(f"Starting training at {start_time}")
-        logger.info(f"Arguments: {vars(args)}")
+        logger.info(f"Parameters: device={device}, epoch={epoch}, batch={batch}, task={task}")
         
         result = {
             'success': False,
@@ -363,71 +370,75 @@ def get_reward(code: str):
         try:
             # Load optimizer
             optimizer_class, optimizer_name = load_optimizer_from_file(optimizer_path, logger)
-        result['optimizer_name'] = optimizer_name
-        
-        # Load data
-        trainloader, testloader = get_data_loaders(args.batch, logger)
-        
-        # Setup model
-        model, criterion, optimizer, device = setup_model(0.001, optimizer_class, args.device, args.task, logger)
-        
-        # Training loop
-        epoch_metrics = []
-        
-        # Initial evaluation before training (epoch 0)
-        logger.info("Evaluating initial model performance (epoch 0)")
-        # initial_test_loss, initial_test_acc = test_epoch(0, testloader, model, criterion, device, logger)
-        epoch_metrics.append({
-            'epoch': 0,
-            'train_loss': None,  # No training performed yet
-            'train_acc': None,   # No training performed yet
-            'test_loss': float(-math.log(0.1)),
-            'test_acc': float(0.1)
-        })
-        
-        for epoch in range(1, args.epoch + 1):
-            train_loss, train_acc = train_epoch(epoch, trainloader, model, criterion, optimizer, device, logger)
-            test_loss, test_acc = test_epoch(epoch, testloader, model, criterion, device, logger)
+            result['optimizer_name'] = optimizer_name
             
-            # Store metrics
+            # Load data
+            trainloader, testloader = get_data_loaders(batch, logger)
+            
+            # Setup model
+            model, criterion, optimizer_inst, device_obj = setup_model(0.001, optimizer_class, device, task, logger)
+            
+            # Training loop
+            epoch_metrics = []
+            
+            # Initial evaluation before training (epoch 0)
+            logger.info("Evaluating initial model performance (epoch 0)")
             epoch_metrics.append({
-                'epoch': epoch,
-                'train_loss': float(train_loss),
-                'train_acc': float(train_acc),
-                'test_loss': float(test_loss),
-                'test_acc': float(test_acc)
+                'epoch': 0,
+                'train_loss': None,  # No training performed yet
+                'train_acc': None,   # No training performed yet
+                'test_loss': float(-math.log(0.1)),
+                'test_acc': float(0.1)
             })
+            
+            for ep in range(1, epoch + 1):
+                train_loss, train_acc = train_epoch(ep, trainloader, model, criterion, optimizer_inst, device_obj, logger)
+                test_loss, test_acc = test_epoch(ep, testloader, model, criterion, device_obj, logger)
+                
+                # Store metrics
+                epoch_metrics.append({
+                    'epoch': ep,
+                    'train_loss': float(train_loss),
+                    'train_acc': float(train_acc),
+                    'test_loss': float(test_loss),
+                    'test_acc': float(test_acc)
+                })
+            
+            result['metrics'] = epoch_metrics
+            result['success'] = True
+            logger.info(f"Training completed successfully with {len(epoch_metrics)} epochs")
         
-        result['metrics'] = epoch_metrics
-        result['success'] = True
-        logger.info(f"Training completed successfully with {len(epoch_metrics)} epochs")
+        except Exception as e:
+            error_msg = str(e)
+            result['error'] = error_msg
+            logger.error(f"Training failed: {error_msg}")
+            logger.debug(traceback.format_exc())
         
-    except Exception as e:
-        error_msg = str(e)
-        result['error'] = error_msg
-        logger.error(f"Training failed: {error_msg}")
-        logger.debug(traceback.format_exc())
-    
-    finally:
-        end_time = datetime.now()
-        result['end_time'] = end_time.isoformat()
-        result['duration_seconds'] = (end_time - start_time).total_seconds()
-        
-        # Compute reward
-        reward = compute_reward(result['metrics']) if result['success'] else 0.0
-        result['reward'] = reward
-        
-        logger.info(f"Reward: {reward:.4f}")
-        
-        # Output final result
-        output_result(result, args.output_format)
-        
-        return reward, error_msg, ""
+        finally:
+            end_time = datetime.now()
+            result['end_time'] = end_time.isoformat()
+            result['duration_seconds'] = (end_time - start_time).total_seconds()
+            
+            # Compute reward
+            reward = compute_reward(result['metrics']) if result['success'] else 0.0
+            result['reward'] = reward
+            
+            logger.info(f"Reward: {reward:.4f}")
+            
+            # Output final result
+            output_result(result, output_format)
+            
+            return reward, error_msg, ""
     finally:
         os.unlink(optimizer_path)
 
 if __name__ == '__main__':
+    args = parse_args()
     with open(os.path.join(os.getcwd(), "initial_code.py")) as f:
         code = f.read()
-    reward, error_msg, details = get_reward(code)
+    reward, error_msg, details = get_reward(
+        code, device=args.device, epoch=args.epoch, batch=args.batch,
+        task=args.task, log_level=args.log_level, log_file=args.log_file,
+        output_format=args.output_format
+    )
     print(f"Reward: {reward}, Error: {error_msg}")
