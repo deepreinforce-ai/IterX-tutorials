@@ -13,8 +13,8 @@ This task is set up to compare against the official [mlsys26-agent-baseline](htt
 
 | Agent | H100 | B200 |
 |-------|------|------|
-| GPT ([mlsys26-agent-baseline](https://github.com/flashinfer-ai/mlsys26-agent-baseline)) | 3.57x | 4.38x |
-| Claude ([mlsys26-agent-baseline](https://github.com/flashinfer-ai/mlsys26-agent-baseline)) | 3.80x | 5.74x |
+| GPT 5.2 Pro - OpenEvolve[mlsys26-agent-baseline](https://github.com/flashinfer-ai/mlsys26-agent-baseline)) | 3.57x | 4.38x |
+| Claude 4.6 Opus - OpenEvolve ([mlsys26-agent-baseline](https://github.com/flashinfer-ai/mlsys26-agent-baseline)) | 3.80x | 5.74x |
 | **IterX** | **15.62x** | **14.84x** |
 
 The `get_reward()` function returns a tuple of **`(reward, correctness_check, error_msg, details)`**:
