@@ -20,6 +20,7 @@ pip install -r requirements.txt
 | [exploit_contract](./exploit_contract/) | Blockchain / Security | ⭐⭐⭐⭐ | Smart contract exploit generation |
 | [optimizer](./optimizer/) | Machine Learning | ⭐⭐⭐⭐ | Design an optimizer better than Adam |
 | [anthropic_take_home](./anthropic_take_home/) | Systems / VLIW | ⭐⭐⭐⭐⭐ | Anthropic performance engineering take-home |
+| [flashinfer_bench](./flashinfer_bench/) | Systems / GPU | ⭐⭐⭐⭐⭐ | [MLSys 2026 FlashInfer](https://mlsys26.flashinfer.ai) fused MoE kernel optimization |
 
 > **Note:** Tasks with ⭐ (1 star) difficulty are for **illustration purposes only**, demonstrating how to set up an Iterx task.
 
