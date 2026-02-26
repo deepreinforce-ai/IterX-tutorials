@@ -99,7 +99,7 @@ Generate complete, runnable code only - no framework will add device handling wr
         f"{BASE_URL}/api/task/create",
         headers=headers,
         json={
-            "task_name": f"special_generation_2_internal_test_optimize_anthropic_kernel",
+            "task_name": f"flashinfer_bench_moe",
             "task_description": task_description,
             "reward_description": """The reward is the Speedup Ratio, which means `reward = BASELINE_LATENCY / CODE_LATENCY`""",
             "initial_code": initial_code,
