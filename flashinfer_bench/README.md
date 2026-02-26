@@ -7,7 +7,7 @@
 
 This task targets the **Fused MoE track** of the [MLSys 2026 NVIDIA Track - FlashInfer Kernel Generation Contest](https://mlsys26.flashinfer.ai). The goal is to generate optimized Triton kernels for a **FP8 block-scale Mixture-of-Experts (MoE)** operation (DeepSeek-V3/R1 architecture) on NVIDIA GPUs (H100 / B200).
 
-This task is set up to compare against the official [mlsys26-agent-baseline](https://github.com/flashinfer-ai/mlsys26-agent-baseline). Results from that baseline are stored in `result-from-mlsys26-agent-baseline/` for reference.
+This task is set up to compare against the official [mlsys26-agent-baseline](https://github.com/flashinfer-ai/mlsys26-agent-baseline). Results are stored in `results/` for reference.
 
 **Performance Benchmarks (Speedup vs. Reference):**
 
@@ -446,7 +446,7 @@ flashinfer_bench/
 ├── init_code.py                           # Initial Triton kernel provided to the model
 ├── eval_once.py                           # Modal-based evaluation (flashinfer-bench)
 ├── run_iterx.py                           # IterX evaluation runner
-└── result-from-mlsys26-agent-baseline/    # Baseline and IterX results
+└── results/    # Baseline and IterX results
     ├── H100_gpt_5_2.py                    # GPT result on H100
     ├── B200_gpt_5_2.py                    # GPT result on B200
     ├── H100_opus_4_6.py                   # Claude Opus result on H100
@@ -490,19 +490,19 @@ You can evaluate the baseline results from [mlsys26-agent-baseline](https://gith
 
 ```bash
 # Claude Opus results
-MODAL_GPU=H100 python eval_once.py --code result-from-mlsys26-agent-baseline/H100_opus_4_6.py
-MODAL_GPU=B200 python eval_once.py --code result-from-mlsys26-agent-baseline/B200_opus_4_6.py
+MODAL_GPU=H100 python eval_once.py --code results/H100_opus_4_6.py
+MODAL_GPU=B200 python eval_once.py --code results/B200_opus_4_6.py
 
 # GPT results
-MODAL_GPU=H100 python eval_once.py --code result-from-mlsys26-agent-baseline/H100_gpt_5_2.py
-MODAL_GPU=B200 python eval_once.py --code result-from-mlsys26-agent-baseline/B200_gpt_5_2.py
+MODAL_GPU=H100 python eval_once.py --code results/H100_gpt_5_2.py
+MODAL_GPU=B200 python eval_once.py --code results/B200_gpt_5_2.py
 ```
 
 IterX results:
 
 ```bash
-MODAL_GPU=H100 python eval_once.py --code result-from-mlsys26-agent-baseline/H100_iterx.py
-MODAL_GPU=B200 python eval_once.py --code result-from-mlsys26-agent-baseline/B200_iterx.py
+MODAL_GPU=H100 python eval_once.py --code results/H100_iterx.py
+MODAL_GPU=B200 python eval_once.py --code results/B200_iterx.py
 ```
 
 You can also evaluate the initial code or any custom kernel:

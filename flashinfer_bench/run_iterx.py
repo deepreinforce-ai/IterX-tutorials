@@ -289,7 +289,7 @@ def main(task_id):
 
 def get_or_create_task_id():
     """Load task_id from task_id.txt if exists, otherwise create new task."""
-    task_id_path = os.path.join(os.path.dirname(__file__), f"task_id_model_{args.model}_sample_{args.sample_size}.txt")
+    task_id_path = os.path.join(os.path.dirname(__file__), f"task_id_model_{args.model}_sample_{args.sample_size}_{GPU_TYPE}.txt")
 
     if os.path.exists(task_id_path):
         try:
